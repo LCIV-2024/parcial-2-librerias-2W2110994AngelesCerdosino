@@ -58,5 +58,19 @@ public class ExternalBookService {
             throw new RuntimeException("Error al obtener el libro de la API externa: " + e.getMessage(), e);
         }
     }
+
+    public boolean isExternalApiAvailable() {
+        try {
+            log.info("Verificando disponibilidad de API externa: {}", externalApiUrl);
+
+            restTemplate.getForObject(externalApiUrl, String.class);
+            log.info("API externa disponible");
+            return true;
+
+        } catch (RestClientException e) {
+            log.warn("API externa no disponible: {}", e.getMessage());
+            return false;
+        }
+    }
 }
 
