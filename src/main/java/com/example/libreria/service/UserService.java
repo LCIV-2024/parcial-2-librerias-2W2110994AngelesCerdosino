@@ -93,5 +93,10 @@ public class UserService {
         dto.setCreatedAt(user.getCreatedAt());
         return dto;
     }
+
+    public User getUserEntityById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
 }
 
