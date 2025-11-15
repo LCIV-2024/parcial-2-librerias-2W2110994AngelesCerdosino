@@ -6,31 +6,46 @@ spring:
     url: jdbc:h2:mem:libreria_db
     driver-class-name: org.h2.Driver
     username: sa
-    password: 
+    password:
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    defer-datasource-initialization: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:data.sql
   h2:
     console:
       enabled: true
       path: /h2-console
-      settings:
-        web-allow-others: false
 
 external:
   api:
     books:
-      url: 
+      url: https://my-json-server.typicode.com/Gabriel-Arriola-UTN/libros/books
 
 server:
   port: 8080
+
+logging:
+  level:
+    com.example.libreria: INFO
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:h2:file:/data/libreria_db
+  jpa:
+    show-sql: false
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+
+logging:
+  level:
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
