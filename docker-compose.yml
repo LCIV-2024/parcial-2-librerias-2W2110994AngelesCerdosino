@@ -1,1 +1,16 @@
-# // TODO: Implementar el docker-compose
+services:
+  libreria-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - h2_data:/data
+    restart: unless-stopped
+
+volumes:
+  h2_data:
+    driver: local
